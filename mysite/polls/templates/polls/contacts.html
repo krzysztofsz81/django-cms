@@ -1,0 +1,19 @@
+{% extends 'polls/base.html' %}
+{% block main_content %}
+<div class="text-left">
+    <b>Contacts list:</b>
+    {% if contacts %}
+        <ul>
+            {% for contact in contacts %}
+                <li>
+                    <a href = {% url "polls:contact" contact.id %}>
+                        <b>{{contact.forename}} {{contact.surname}}</b>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You don't have any contacts. Please add some. </p>
+    {% endif %}
+</div>
+{% endblock %}

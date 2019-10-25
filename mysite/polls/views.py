@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Question
+from .models import Question, Contact
 
 def index(request):
     latest_questions = Question.objects.order_by('-pub_date')[0:5]
@@ -9,6 +9,19 @@ def index(request):
     return render(request, "polls/index.html", {
         'latest_questions': latest_questions,
     })
+
+def contacts(request):
+    all_contacts = Contact.objects.order_by('-forename')[0:5]
+    return render(request, "polls/contacts.html", {
+        'contacts': all_contacts,
+    })
+
+def contact(request, contact_id):
+    contact_detail = get_object_or_404(Contact, pk = contact_id)
+    return render(request, "polls/contact.html", {
+        'contact': contact_detail,
+    })
+
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk = question_id)
